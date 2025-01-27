@@ -1,11 +1,18 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import Sidebar from "@/components/Sidebar";
+import Editor from "@/components/Editor";
+import AIAssistant from "@/components/AIAssistant";
+import Terminal from "@/components/Terminal";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <div className="flex h-screen bg-editor-bg">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex">
+          <Editor />
+          <AIAssistant />
+        </div>
+        <Terminal />
       </div>
     </div>
   );
