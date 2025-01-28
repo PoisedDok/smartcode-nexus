@@ -26,8 +26,17 @@ const AIAssistant = () => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { toast } = useToast();
 
+  const addAssistantMessage = useCallback((content: string) => {
+    setMessages(prev => [...prev, {
+      type: 'assistant',
+      content,
+      timestamp: new Date()
+    }]);
+  }, []);
+
   const analyzePromptScript = useCallback((script: string) => {
-    // Simulate AI analysis of the PromptScript
+    setIsAnalyzing(true);
+    
     const analysis = `Analyzing PromptScript:\n${script}\nIdentified command pattern...`;
     
     setPromptScripts(prev => [...prev, {
@@ -47,11 +56,15 @@ const AIAssistant = () => {
       title: "PromptScript Analyzed",
       description: "New script has been added to the chain",
     });
+    
+    setIsAnalyzing(false);
   }, [toast]);
 
   const handleInputSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!currentInput.trim()) return;
+
     if (currentInput.startsWith('/') && currentInput.endsWith('//')) {
       const script = currentInput.slice(1, -2).trim();
       
@@ -73,34 +86,42 @@ const AIAssistant = () => {
         content: currentInput,
         timestamp: new Date()
       }]);
+
+      // Simulate AI response based on context
+      setTimeout(() => {
+        const responses = [
+          "I notice you're working on the code. Would you like me to analyze any specific part?",
+          "I'm here to help! Feel free to use /your command// for PromptScript analysis.",
+          "How's the development going? I can help you optimize or debug if needed.",
+          "Remember, I can analyze your code in real-time. Just let me know what you'd like to focus on.",
+          "I'm monitoring the changes. Would you like me to explain any part of the codebase?"
+        ];
+        addAssistantMessage(responses[Math.floor(Math.random() * responses.length)]);
+      }, 1000);
     }
     
     setCurrentInput("");
   };
 
   useEffect(() => {
-    const analyzeCode = async () => {
+    const initializeAssistant = async () => {
       setIsAnalyzing(true);
       try {
-        const analysis = "Monitoring for new PromptScript commands...";
-        setMessages(prev => [...prev, {
-          type: 'assistant',
-          content: analysis,
-          timestamp: new Date()
-        }]);
+        addAssistantMessage("Hello! I'm your AI assistant. I'm here to help you with your development tasks. You can:");
+        addAssistantMessage("• Ask me questions about the code\n• Use /your command// for PromptScript analysis\n• Get real-time feedback on your work");
       } catch (error) {
-        console.error("Analysis error:", error);
+        console.error("Initialization error:", error);
         toast({
           variant: "destructive",
-          title: "Analysis Failed",
-          description: "Unable to analyze code at this time",
+          title: "Initialization Failed",
+          description: "Unable to initialize AI assistant",
         });
       }
       setIsAnalyzing(false);
     };
 
-    analyzeCode();
-  }, [toast]);
+    initializeAssistant();
+  }, [addAssistantMessage, toast]);
 
   return (
     <div className="w-80 futuristic-panel animate-fade-in bg-editor-bg/30 backdrop-blur-xl border border-editor-accent/20">
@@ -159,7 +180,7 @@ const AIAssistant = () => {
           <Input
             value={currentInput}
             onChange={(e) => setCurrentInput(e.target.value)}
-            placeholder="Type /your prompt//"
+            placeholder="Type /your prompt// or ask a question"
             className="flex-1 bg-editor-bg/40 border-editor-accent/20 text-editor-text placeholder:text-editor-text/50"
           />
           <Button 
