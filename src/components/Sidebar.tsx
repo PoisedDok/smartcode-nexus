@@ -27,16 +27,16 @@ const files = [
 
 const Sidebar = () => {
   return (
-    <SidebarComponent>
-      <div className="flex items-center justify-between p-4 border-b border-border">
-        <h2 className="text-foreground font-semibold">Project Explorer</h2>
+    <SidebarComponent className="futuristic-panel border-r border-primary/20">
+      <div className="flex items-center justify-between p-4 glass-effect border-b border-primary/20">
+        <h2 className="text-foreground font-semibold neon-text">Project Explorer</h2>
         <SidebarTrigger>
-          <Menu className="h-5 w-5" />
+          <Menu className="h-5 w-5 text-primary" />
         </SidebarTrigger>
       </div>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Files</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-primary/80">Files</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {files.map((file) => (
@@ -44,9 +44,9 @@ const Sidebar = () => {
                   <SidebarMenuButton asChild>
                     <Button
                       variant="ghost"
-                      className="w-full justify-start gap-2"
+                      className="w-full justify-start gap-2 hover:bg-primary/10 neon-border"
                     >
-                      <file.icon className="h-4 w-4" />
+                      <file.icon className="h-4 w-4 text-primary" />
                       <span>{file.name}</span>
                     </Button>
                   </SidebarMenuButton>
@@ -57,29 +57,29 @@ const Sidebar = () => {
         </SidebarGroup>
 
         <SidebarGroup>
-          <SidebarGroupLabel>Tools</SidebarGroupLabel>
+          <SidebarGroupLabel className="text-primary/80">Tools</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Button variant="ghost" className="w-full justify-start gap-2">
-                    <Search className="h-4 w-4" />
+                  <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-primary/10 neon-border">
+                    <Search className="h-4 w-4 text-primary" />
                     <span>Search</span>
                   </Button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Button variant="ghost" className="w-full justify-start gap-2">
-                    <GitBranch className="h-4 w-4" />
+                  <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-primary/10 neon-border">
+                    <GitBranch className="h-4 w-4 text-primary" />
                     <span>Source Control</span>
                   </Button>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Button variant="ghost" className="w-full justify-start gap-2">
-                    <Settings className="h-4 w-4" />
+                  <Button variant="ghost" className="w-full justify-start gap-2 hover:bg-primary/10 neon-border">
+                    <Settings className="h-4 w-4 text-primary" />
                     <span>Settings</span>
                   </Button>
                 </SidebarMenuButton>
